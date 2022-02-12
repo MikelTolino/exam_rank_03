@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 typedef struct s_zone
 {
@@ -14,7 +15,7 @@ typedef struct s_zone
 
 typedef struct s_circle
 {
-	char c;
+	char type;
 	float x;
 	float y;
 	float radius;
