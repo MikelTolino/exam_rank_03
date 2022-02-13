@@ -115,7 +115,7 @@ int	read_and_draw(FILE *f, t_zone *zone)
 		return (1);
 	while ((count = fscanf(f, "%c %f %f %f %f %c\n", &r.type, &r.x, &r.y, &r.width, &r.height, &r.bg)) != EOF)
 	{
-		if (count != 6 || r.x <= 0 || r.y <= 0 || r.width <= 0 || r.height <= 0 || !r.bg || (r.type != 'r' && r.type != 'R'))
+		if (count != 6 || r.width <= 0 || r.height <= 0 || !r.bg || (r.type != 'r' && r.type != 'R'))
 			return (1);
 		if (r.type == 'r')
 			draw_empty(zone, &r);

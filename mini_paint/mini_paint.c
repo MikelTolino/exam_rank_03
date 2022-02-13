@@ -18,7 +18,7 @@ int	throw_error(char *error)
 	return (1);
 }
 
-int is_point_inside(t_circle circle, int x, int y)
+int is_point_inside(t_circle circle, float x, float y)
 {
 	float distance;
 
@@ -28,12 +28,12 @@ int is_point_inside(t_circle circle, int x, int y)
 	return (0);
 }
 
-int is_point_outside(t_circle circle, int x, int y)
+int is_point_outside(t_circle circle, float x, float y)
 {
 	float distance;
 
 	distance = sqrtf(powf(circle.x - x, 2) + powf(circle.y - y, 2));
-	if (distance - circle.radius >= 0 && distance - circle.radius <= 1)
+	if (circle.radius - distance < 1 && is_point_inside(circle, x, y))
 		return (1);
 	return (0);
 }
@@ -120,10 +120,11 @@ int	read_and_print(FILE *f, t_zone *zone)
 		return (1);
 	while ((count = fscanf(f, "%c %f %f %f %c\n", &circle.type, &circle.x, &circle.y, &circle.radius, &circle.bg)) != EOF)
 	{
-		if (count != 5 || (circle.type != 'c' && circle.type != 'C') || circle.x <= 0 || circle.x > 300 || circle.y <= 0 || circle.y > 300 || circle.radius <= 0)
+		if (count != 5 || (circle.type != 'c' && circle.type != 'C') || circle.radius <= 0)
 			return (1);
 		fill_circle(zone, circle);
 	}
+	fclose(f);
 	print_zone(zone);
 	return (0);
 }
@@ -141,3 +142,4 @@ int main(int argc, char **argv)
 		return (throw_error("Error: Operation file corrupted\n"));
 	return (0);
 }
+
